@@ -45,9 +45,9 @@ function calculate(arr) {
 }
 
 function expressionCalculator(expr) {
+    if((expr.match(/\(/g) || []).length !== (expr.match(/\)/g) || []).length) return "TypeError: Brackets must be paired";
     trimedExpr = expr.trim(); //remove leading spaces
     let result = 0;
-
 
     if ( trimedExpr.split("(").length !== trimedExpr.split(")").length) 
     return "ExpressionError: Brackets must be paired";
@@ -75,9 +75,14 @@ function expressionCalculator(expr) {
         console.log('trimedExpr '+trimedExpr.split(' '));
         result = trimedExpr.includes(' ') ? calculate(trimedExpr.split(' ')) : calculate(trimedExpr.split(''));
     }
+    if(result === Infinity) throw "TypeError: Division by zero.";
     return result;
 }
 
 module.exports = {
     expressionCalculator
 }
+/*
+const expr = "1 / 0";
+console.log(expressionCalculator(expr));
+*/
